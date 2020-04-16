@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1018451696557",
+    "firebase_url": "https://sendapp-3fee7.firebaseio.com",
+    "project_id": "sendapp-3fee7",
+    "storage_bucket": "sendapp-3fee7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018451696557:android:3ffdcc000900141b8e9f24",
+        "android_client_info": {
+          "package_name": "com.sendapp.sendapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018451696557-1lmvv8647n8cskpba9utkj67r6fkia92.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPHKaogML4t8fM1Xw2ppGB5xsZLNy9jag"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018451696557-1lmvv8647n8cskpba9utkj67r6fkia92.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1018451696557-06ue0ed6mjmlqogl54v1upgfh3bl78o2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sendapp.sendapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

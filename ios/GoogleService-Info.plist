@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1018451696557-06ue0ed6mjmlqogl54v1upgfh3bl78o2.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1018451696557-06ue0ed6mjmlqogl54v1upgfh3bl78o2</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCxEyw9K0t_U9LmxwLwkfgy7vHl_DbX0Wo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1018451696557</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.sendapp.sendapp</string>
+	<key>PROJECT_ID</key>
+	<string>sendapp-3fee7</string>
+	<key>STORAGE_BUCKET</key>
+	<string>sendapp-3fee7.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1018451696557:ios:aebfbe1f97fad52c8e9f24</string>
+	<key>DATABASE_URL</key>
+	<string>https://sendapp-3fee7.firebaseio.com</string>
+</dict>
+</plist>
