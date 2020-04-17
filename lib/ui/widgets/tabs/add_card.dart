@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sendapp/model/card.dart';
 import 'package:sendapp/utils/constants.dart';
+import 'package:stripe_sdk/stripe_sdk.dart';
+import 'package:stripe_sdk/stripe_sdk_ui.dart';
 import '../button.dart';
+
 class AddCard extends StatefulWidget {
   @override
   _AddCardState createState() => _AddCardState();
@@ -16,6 +19,13 @@ class _AddCardState extends State<AddCard> {
   static const kDarkGray = Color(0xFF7C8995);
   String name, expiry, number;
   int code;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    StripeApi.init("pk_test_gpbwlVeCBVrxNqdUW3FXiNtY");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +71,10 @@ class _AddCardState extends State<AddCard> {
                   hintText: 'Cardholder Name',
                   hintStyle: kTextBody,
                   fillColor: Color(0xFFF0F3F8),
-                  prefixIcon: Image.asset('assets/icon-account.png',scale: 3,),
+                  prefixIcon: Image.asset(
+                    'assets/icon-account.png',
+                    scale: 3,
+                  ),
                   border: new OutlineInputBorder(
                     borderRadius: const BorderRadius.all(
                       const Radius.circular(10.0),
@@ -94,7 +107,10 @@ class _AddCardState extends State<AddCard> {
                   hintText: 'Card Numbers',
                   hintStyle: kTextBody,
                   fillColor: Color(0xFFF0F3F8),
-                  prefixIcon: Image.asset('assets/icon-payment-4.png',scale: 3,),
+                  prefixIcon: Image.asset(
+                    'assets/icon-payment-4.png',
+                    scale: 3,
+                  ),
                   border: new OutlineInputBorder(
                     borderRadius: const BorderRadius.all(
                       const Radius.circular(10.0),
@@ -127,8 +143,7 @@ class _AddCardState extends State<AddCard> {
                   hintText: 'Expiry Date',
                   hintStyle: kTextBody,
                   fillColor: Color(0xFFF0F3F8),
-                                   prefixIcon: Image.asset('assets/icon-calendar.png',scale: 3),
-
+                  prefixIcon: Image.asset('assets/icon-calendar.png', scale: 3),
                   border: new OutlineInputBorder(
                     borderRadius: const BorderRadius.all(
                       const Radius.circular(10.0),
@@ -157,7 +172,10 @@ class _AddCardState extends State<AddCard> {
                   hintText: 'Security Code',
                   hintStyle: kTextBody,
                   fillColor: Color(0xFFF0F3F8),
-                  prefixIcon: Image.asset('assets/icon-secure.png',scale: 3,),
+                  prefixIcon: Image.asset(
+                    'assets/icon-secure.png',
+                    scale: 3,
+                  ),
                   border: new OutlineInputBorder(
                     borderRadius: const BorderRadius.all(
                       const Radius.circular(10.0),
@@ -197,6 +215,7 @@ class _AddCardState extends State<AddCard> {
                           showAlertDialog(context, 'Field Empty',
                               'Please check one or more field is empty');
                         }*/
+                        addCard();
                       },
                       text: 'Continue',
                       ico: Icons.arrow_forward,
@@ -209,6 +228,25 @@ class _AddCardState extends State<AddCard> {
         ),
       ),
     );
+  }
+
+  void addCard() async {
+    try {
+      List<String> exps = expiry.split("/");
+      int month = int.tryParse(exps[0]);
+      int year = int.tryParse(exps[1]);
+      String cardNum = number.replaceAll(" ", "").trim();
+      print("Card->$month,$year=>$cardNum");
+      StripeCard card = StripeCard(
+        number: cardNum,
+        expMonth: month,
+        expYear: year,
+      );
+      final token = await StripeApi.instance.createPaymentMethodFromCard(card);
+      print("Token: $token");
+    } catch (e) {
+      print("Error: $e");
+    }
   }
 }
 

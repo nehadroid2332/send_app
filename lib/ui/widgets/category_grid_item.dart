@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sendapp/bloc/product_bloc/bloc.dart';
 import 'package:sendapp/model/category.dart';
-import 'package:sendapp/services/categories_repo.dart';
 import 'package:sendapp/utils/constants.dart';
 import '../screens/products_screen.dart';
 
@@ -30,7 +29,6 @@ class CategoryItem extends StatelessWidget {
       ),
       child: Card(
         elevation: 25,
-        shadowColor: lighterGreyColor,
         borderOnForeground: true,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),

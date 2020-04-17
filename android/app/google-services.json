@@ -15,6 +15,82 @@
       },
       "oauth_client": [
         {
+          "client_id": "1018451696557-naech75iqd9gjige9os8rril50fgdvil.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sendapp.sendapp",
+            "certificate_hash": "1e0fe864b85a8447ff0f7fe60d9a7b519f5636a4"
+          }
+        },
+        {
+          "client_id": "1018451696557-0dvcd88dldebqgi5t7v8ne0u08c7lnju.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sendapp.sendapp",
+            "certificate_hash": "412bf5662c9e1f0662499607a6cfc6cfd35a4703"
+          }
+        },
+        {
+          "client_id": "1018451696557-agjco4c8pk7oj8r5t1skgl80tu2srtq0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sendapp.sendapp",
+            "certificate_hash": "0ee86f4512569c49005b1fcfbc6d72dfd6c73f08"
+          }
+        },
+        {
+          "client_id": "1018451696557-vupqa24s1rk9b3os0lp49vt85timrqhm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sendapp.sendapp",
+            "certificate_hash": "fefa489ccb892d03e1b409e5e7a83260c2e619d0"
+          }
+        },
+        {
+          "client_id": "1018451696557-1lmvv8647n8cskpba9utkj67r6fkia92.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPHKaogML4t8fM1Xw2ppGB5xsZLNy9jag"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018451696557-1lmvv8647n8cskpba9utkj67r6fkia92.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1018451696557-06ue0ed6mjmlqogl54v1upgfh3bl78o2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sendapp.sendapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018451696557:android:08c374b051d63e528e9f24",
+        "android_client_info": {
+          "package_name": "com.sendapp.sendapprider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018451696557-sd2kkbrhc3ikiv304qn6qgp3gnjgbfta.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sendapp.sendapprider",
+            "certificate_hash": "0ee86f4512569c49005b1fcfbc6d72dfd6c73f08"
+          }
+        },
+        {
           "client_id": "1018451696557-1lmvv8647n8cskpba9utkj67r6fkia92.apps.googleusercontent.com",
           "client_type": 3
         }

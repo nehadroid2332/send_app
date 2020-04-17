@@ -4,7 +4,6 @@ import 'package:sendapp/model/category.dart';
 import 'package:sendapp/model/product.dart';
 import 'package:sendapp/services/network_repository.dart';
 import 'package:sendapp/utils/toole.dart';
-import 'package:stripe_payment/stripe_payment.dart';
 
 class CategoriesRepository {
   final NetworkRepository _networkRepository = NetworkRepository();

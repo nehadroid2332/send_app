@@ -32,7 +32,6 @@ class ProductWidget extends StatelessWidget {
       },
       child: Card(
         elevation: 20,
-        shadowColor: lighterGreyColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),

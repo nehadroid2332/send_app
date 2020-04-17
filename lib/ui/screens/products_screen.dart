@@ -234,7 +234,6 @@ class SearchProduct extends SearchDelegate<Product> {
             },
             child: Card(
               elevation: 25,
-              shadowColor: lighterGreyColor,
               borderOnForeground: true,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -303,7 +302,7 @@ class SearchProduct extends SearchDelegate<Product> {
         filled: true,
         hintStyle: Theme.of(context)
             .textTheme
-            .headline6
+            .headline
             .copyWith(color: mediumGreyColor1, fontWeight: FontWeight.w400),
       ),
     );

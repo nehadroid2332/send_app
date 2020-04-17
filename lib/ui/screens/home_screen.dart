@@ -17,6 +17,7 @@ import 'package:sendapp/ui/screens/storePage.dart';
 import 'package:sendapp/utils/constants.dart';
 import 'package:sendapp/utils/toole.dart';
 
+import '../widgets/tabs/payment_method.dart';
 import 'cart.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -116,9 +117,7 @@ FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
                 child: StorePage());
             break;
           case 1:
-            return CartScreen(
-              tabController: _tabController,
-            );
+            return PaymentMethod();
             break;
           case 2:
             return BlocProvider(

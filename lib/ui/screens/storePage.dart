@@ -196,7 +196,7 @@ class SearchPage extends SearchDelegate<Category> {
 
       filled: true,
       hintStyle:
-          Theme.of(context).textTheme.headline6.copyWith(color: mediumGreyColor1,fontWeight: FontWeight.w400),
+          Theme.of(context).textTheme.headline.copyWith(color: mediumGreyColor1,fontWeight: FontWeight.w400),
     ),);
   }
 
@@ -251,7 +251,6 @@ class SearchPage extends SearchDelegate<Category> {
             },
             child: Card(
               elevation: 25,
-              shadowColor: lighterGreyColor,
               borderOnForeground: true,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),

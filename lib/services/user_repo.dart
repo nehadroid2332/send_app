@@ -10,7 +10,6 @@ import 'package:sendapp/utils/constants.dart';
 import 'package:sendapp/utils/sharedPreferenceUtils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meta/meta.dart';
-import 'package:stripe_payment/stripe_payment.dart';
 
 class UserRepo {
   final FirebaseAuth _firebaseAuth;
@@ -27,9 +26,9 @@ class UserRepo {
   }
 
 
-List<Token> _savedCard = [];
+// List<Token> _savedCard = [];
 
-  List<Token> get savedCard => _savedCard;
+  // List<Token> get savedCard => _savedCard;
 
   List<Address> _addresses = [];
   Address _address;
