@@ -42,7 +42,7 @@ Future<List<Product>> getProcuct()async{
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
+    var width = MediaQuery.of(context).size.width;
     return CupertinoTabView(
       builder: (context) => Scaffold(
         key: _key,
@@ -133,10 +133,7 @@ Future<List<Product>> getProcuct()async{
                                   if(snapshot.hasError){
                                   return Text("");
                                   }
-                                  return Text(
-                                    //fixme shoe total from repo
-                                    '\$${snapshot.data}',
-//                              '\$$total',
+                                  return Text("\$ ${snapshot.data.toStringAsFixed(2)}",
                                     style: kTextHeading2,
                                   );
                                }
@@ -171,7 +168,7 @@ Future<List<Product>> getProcuct()async{
                               'Total',
                               style: TextStyle(
                                   color: mediumGreyColor2,
-                                  fontSize: 24,
+                                  fontSize: width*0.07,
                                   fontFamily: 'Acumin'),
                             ),
                             FutureBuilder(
@@ -185,12 +182,11 @@ Future<List<Product>> getProcuct()async{
                                     return Text("");
                                   }
                                   return Text(
-                                    //fixme: show total
-                                    '\$${snapshot.data}',
+                                    '\$ ${snapshot.data.toStringAsFixed(2)}',
 //                              '\$$total',
                                     style: TextStyle(
                                         color: mediumGreyColor2,
-                                        fontSize: 24,
+                                        fontSize: width*0.07,
                                         fontFamily: 'Acumin'),
                                   );
                                 }
@@ -210,18 +206,17 @@ Future<List<Product>> getProcuct()async{
                                 borderRadius: BorderRadius.circular(36.0),
                                 side: BorderSide(color: greenColor, width: 2)),
                             onPressed: () async {
-                              //todo: move to Delivery Options
                               //check user is authenticated
                               bool islogin = await userRepo.isSignedIn();
                               if (islogin) {
-
-                               /* userRepo.orderModel=   OrderModel(
-                                    itemList: cartRepo.getProducts
+                                // create order
+                                userRepo.orderModel=   OrderModel(
+                                    itemList: product
                                         .map((e) => ItemList(
                                         itemId: e.id,
                                         quantity: e.quantity.toString(),
                                         total: e.price.toString()))
-                                        .toList());*/
+                                        .toList());
                                 Navigator.push(
                                     context,
                                     CupertinoPageRoute(
@@ -231,20 +226,7 @@ Future<List<Product>> getProcuct()async{
                                       ),
                                     ));
                               } else {
-                                _key.currentState
-                                  ..hideCurrentSnackBar()
-                                  ..showSnackBar(SnackBar(
-                                    backgroundColor: greenColor,
-                                    content: Text("please Login first"),
-                                    action: SnackBarAction(
-                                      label: "Ok",
-                                      onPressed: () {
-                                        print("pressed");
-                                        widget.tabController.index = 2;
-                                      },
-                                      textColor: whiteColor,
-                                    ),
-                                  ));
+                                widget.tabController.index = 2;
                               }
                             },
                             child: Padding(
@@ -371,22 +353,15 @@ Widget itemCard(
                 ),
                 Text(
                   title,
+                  maxLines: 2,
                   style: kTextHeading2,
                 ),
                 Spacer(),
-                //fixme: uncomment this to shoe quantity
-                /*Text(
-                  quantity,
-                  style: TextStyle(
-                      color: mediumGreyColor1,
-                      fontSize: 16,
-                      fontFamily: 'Acumin'),
-                ),*/
                 SizedBox(
                   width: 8,
                 ),
                 Text(
-                  '\$ $price',
+                  '\$ ${price.toStringAsFixed(2)}',
                   style: TextStyle(
                       color: mediumGreyColor2,
                       fontSize: 16,

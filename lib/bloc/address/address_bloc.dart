@@ -25,10 +25,10 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     try {
       yield AddressLoading();
     var address =  await repo.addUserAddress(address:event.address,name: event.name,pinCode: event.postalCode);
-      repo.orderModel = repo.orderModel.copyWith(addressId: address.id);
+
+      repo.orderModel = repo.orderModel?.copyWith(addressId: address.id);
       yield AddressAdded();
     } catch (e) {
-      print(e);
       yield AddressLoadingFail(reason: e.toString());
     }
   }

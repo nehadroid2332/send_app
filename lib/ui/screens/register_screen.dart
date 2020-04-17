@@ -158,8 +158,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         text: "Register",
                         ico: Icons.arrow_forward,
                         onPress: () {
-                          //todo add register login here
-                          print("adasd");
                           _handleFormSubmit();
                         },
                       ),

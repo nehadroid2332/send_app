@@ -129,7 +129,6 @@ class _SearchMapPlaceWidgetState extends State<SearchMapPlaceWidget>
             height: _containerHeight.value,
             width: MediaQuery.of(context).size.width * 0.9,
             decoration: _containerDecoration(),
-//todo: fix widget alignment
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,

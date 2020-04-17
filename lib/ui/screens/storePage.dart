@@ -14,7 +14,6 @@ class StorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoTabView(
-
       builder: (context) => Scaffold(
         backgroundColor: whiteColor,
         appBar: AppBar(
@@ -148,7 +147,7 @@ class StorePage extends StatelessWidget {
                     BlocProvider.of<CategoryBloc>(context)..add(LoadCategories());
                   },
                   child: Text(
-                    "${state.reason}\ntap to refreash",
+                    "${state.reason}\ntap to refresh",
                     textAlign: TextAlign.center,
                     style: kTextBody,
                   )),

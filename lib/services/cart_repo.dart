@@ -28,7 +28,7 @@ DatabaseHelper db = DatabaseHelper();
 //? price of all product
  Future<double> getTotal()async {
    List list = await db.getProductsList();
-   double price  = list.fold(0, (previousValue, element) => previousValue+element.price.toInt());
+   double price  = list.fold(0, (previousValue, element) => previousValue+element.price);
    return price;
   }
 

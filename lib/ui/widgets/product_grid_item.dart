@@ -77,7 +77,6 @@ class ProductWidget extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-//                  todo: add more text if need
                     Text("${product.name}", style: kTextBody),
                   ],
                 ),

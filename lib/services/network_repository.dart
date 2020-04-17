@@ -42,7 +42,6 @@ class NetworkRepository {
           url: "productList",
           body: {
             "id": id,
-            //fixme: remove hard code coordinates
             "lat": position.latitude,
             "long": position.longitude
           });

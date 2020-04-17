@@ -146,7 +146,7 @@ class ProductScreen extends StatelessWidget {
                     BlocProvider.of<ProductBloc>(context)..add(LoadProducts(id:id));
                   },
                   child: Text(
-                    "${state.reason}\ntap to refreash",
+                    "${state.reason}\ntap to refresh",
                     textAlign: TextAlign.center,
                     style: kTextBody,
                   )),

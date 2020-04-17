@@ -78,11 +78,14 @@ int i = 1;
                     children: <Widget>[
                       Text(
                         widget.product.name,
+                        maxLines: 1,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
                         style: kTextHeading2,
                       ),
                       Text(
                         //Todo: Dynamic Pricing
-                        "\$${widget.product.price}",
+                        "\$ ${widget.product.price.toStringAsFixed(2)}",
                         style: kTextHeading2,
                       ),
 

@@ -63,7 +63,6 @@ print(response.body);
   dynamic _returnResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
-        //todo: return based on response
         Map decodeBody = jsonDecode(response.body);
         if (decodeBody.containsValue("ERROR")) {
           throw ApiErrorException(decodeBody['message']);

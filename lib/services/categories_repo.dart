@@ -11,22 +11,6 @@ class CategoriesRepository {
 
   Future<List<Category>> getCategories() async {
     try {
-/*//      fixme: this is not happened here--------------------------------------------
-      CreditCard cardDetails = CreditCard(
-        name: "kamal",
-        expMonth: 4,
-        expYear: 2021,
-        cvc: "314",
-        number: "4000056655665556",
-      );
-      StripePayment.setOptions(
-          StripeOptions(publishableKey: "pk_test_gpbwlVeCBVrxNqdUW3FXiNtY", merchantId: "Test", androidPayMode: 'test'));
-      StripePayment.createTokenWithCard(
-        cardDetails,
-      ).then((token) {
-        print(token.tokenId);
-      });
-//todo remove above test code---------------------------------------------------------*/
       final response = await _networkRepository.getCategories();
 
       var list = response.data["data"] as List;
@@ -39,7 +23,6 @@ class CategoriesRepository {
 
   Future<List<Product>> getProductById({String productId}) async {
     try {
-//      fixme: uncomment this location code
       final response = await _networkRepository.getProducts(
           id: productId, position: await location.getLocation());
       var list = response.data["data"] as List;

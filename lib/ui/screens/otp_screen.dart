@@ -126,8 +126,6 @@ class _OtpScreenState extends State<OtpScreen> {
                       } else {
                         showToast("Invalid OTP", Colors.red);
                       }
-                      //todo implement after enter otp
-                      print("butten presssed");
                     },
                   ),
                 )

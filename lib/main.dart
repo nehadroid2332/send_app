@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           appBarTheme: AppBarTheme(elevation: 0, color: mediumGreyColor1),
           primaryColor: greenColor,
+          fontFamily: 'Acumin Pro SemiCondensed',
           primarySwatch: Colors.green),
-      //todo: add home page for add flat navigation
       home: MultiRepositoryProvider(
         providers: [
           RepositoryProvider(create: (context) => CartRepo()),

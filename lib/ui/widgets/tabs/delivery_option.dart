@@ -100,7 +100,11 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                                 ),
                                 Text(
                                   'Standard',
-                                  style: kTextHeading,
+                                  style: TextStyle(
+                                      color: mediumGreyColor2,
+                                      fontSize: width*0.05,
+                                      fontWeight: FontWeight.w400
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 4,
@@ -226,7 +230,6 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                               children: <Widget>[
                                 CircularCheckBox(
                                     disabledColor: greenColor,
-                                    //todo: Hardcoded Checkbox
                                     value: _dateSelections[0],
                                     materialTapTargetSize:
                                         MaterialTapTargetSize.padded,
@@ -259,7 +262,6 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                               children: <Widget>[
                                 CircularCheckBox(
                                     activeColor: greenColor,
-                                    //todo: Hardcoded Checkbox
                                     value: _dateSelections[1],
                                     materialTapTargetSize:
                                         MaterialTapTargetSize.padded,
@@ -291,7 +293,6 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                               children: <Widget>[
                                 CircularCheckBox(
                                     activeColor: greenColor,
-                                    //todo: Hardcoded Checkbox
                                     value: _dateSelections[2],
                                     materialTapTargetSize:
                                     MaterialTapTargetSize.padded,
@@ -323,7 +324,6 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                               children: <Widget>[
                                 CircularCheckBox(
                                     activeColor: greenColor,
-                                    //todo: Hardcoded Checkbox
                                     value: _dateSelections[3],
                                     materialTapTargetSize:
                                     MaterialTapTargetSize.padded,
@@ -355,7 +355,6 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                               children: <Widget>[
                                 CircularCheckBox(
                                     activeColor: greenColor,
-                                    //todo: Hardcoded Checkbox
                                     value: _dateSelections[4],
                                     materialTapTargetSize:
                                     MaterialTapTargetSize.padded,
@@ -425,7 +424,6 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                             children: <Widget>[
                               CircularCheckBox(
                                   activeColor: greenColor,
-                                  //todo: Hardcoded Checkbox
                                   value: _timeSelection[0],
                                   materialTapTargetSize:
                                   MaterialTapTargetSize.padded,
@@ -457,7 +455,6 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                             children: <Widget>[
                               CircularCheckBox(
                                   activeColor: greenColor,
-                                  //todo: Hardcoded Checkbox
                                   value: _timeSelection[1],
                                   materialTapTargetSize:
                                   MaterialTapTargetSize.padded,
@@ -488,7 +485,6 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                           ), /*Row(
                             children: <Widget>[
                               CircularCheckBox(
-                                //todo: Hardcoded Checkbox
                                   value: _timeSelection[2],
 
                                   disabledColor: greenColor,
@@ -522,7 +518,6 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                             children: <Widget>[
                               CircularCheckBox(
                                   activeColor: greenColor,
-                                  //todo: Hardcoded Checkbox
                                   value: _timeSelection[3],
                                   materialTapTargetSize:
                                   MaterialTapTargetSize.padded,
@@ -550,7 +545,6 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                               _timeSelection[val] = false;
                             }
                           }
-//                          _selections[index] =!_selections[index];
                         });
                       },
                     ),

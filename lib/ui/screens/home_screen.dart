@@ -64,6 +64,7 @@ FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   @override
   Widget build(BuildContext context) {
+    print("home builder");
     return CupertinoTabScaffold(
       backgroundColor: lighterGreyColor,
       controller: _tabController,
@@ -103,6 +104,7 @@ FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
                 ),
                 title: Text("")),
           ]),
+
       tabBuilder: (context, index) {
         switch (index) {
           case 0:
