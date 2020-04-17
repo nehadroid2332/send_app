@@ -139,7 +139,7 @@ int i = 1;
                       borderRadius: BorderRadius.circular(36.0),
                       side: BorderSide(color: greenColor, width: 2)),
                   onPressed: () async {
-                    String prod = RepositoryProvider.of<CartRepo>(context)
+                    String prod = await RepositoryProvider.of<CartRepo>(context)
                         .addProduct(widget.product);
                     _scaffoldKey.currentState
                       ..hideCurrentSnackBar()

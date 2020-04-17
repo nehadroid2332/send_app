@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:location/location.dart';
 import 'package:meta/meta.dart';
 import 'package:sendapp/model/address.dart';
@@ -41,6 +42,7 @@ class NetworkRepository {
           url: "productList",
           body: {
             "id": id,
+            //fixme: remove hard code coordinates
             "lat": position.latitude,
             "long": position.longitude
           });
@@ -62,8 +64,11 @@ class NetworkRepository {
 
   Future<ApiResponse> verifyUser({ String phone})async {
     try {
+     final val = FirebaseMessaging();
+     val.getToken();
       Map<String, dynamic> apiResponse =
       await _helper.postReq(url: "login", body: {"phone":phone});
+//      await _helper.postReq(url: "login", body: {"phone": await val.getToken()});
       return ApiResponse.completed(apiResponse);
     } on Exception catch (e) {
       throw e;

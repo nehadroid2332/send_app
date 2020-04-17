@@ -167,7 +167,7 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
                       SizedBox(
                         height: 8,
                       ),
-                      /*  Padding(
+                        Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: TextFormField(
                           onChanged: (val) {},
@@ -178,7 +178,7 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
                           },
                           decoration: InputDecoration(
                             filled: true,
-                            hintText: 'Street Address',
+                            hintText: 'Second Address',
                             hintStyle: kTextBody,
                             fillColor: Color(0xFFF0F3F8),
                             border: new OutlineInputBorder(
@@ -193,7 +193,10 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
                           ),
                           style: kTextBody),
                     ),
-                    SizedBox(
+                      SizedBox(
+                        height: 8,
+                      ),
+                      /*  SizedBox(
                       height: 8,
                     ),
                     Padding(

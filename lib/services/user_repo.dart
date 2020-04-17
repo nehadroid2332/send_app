@@ -139,11 +139,10 @@ List<Token> _savedCard = [];
       UserModel user = await getSavedUser();
       var res = await _networkRepository.registerUser(
           phone: user.phone, email: email, lastName: lname, name: name);
-      print(res.data);
       user = UserModel.fromJson(res.data["data"]);
       saveUser(user);
       _sharedPreferences.setBool(Constants.SIGNIN, true);
-      return UserModel.fromJson(res.data["date"]);
+      return UserModel.fromJson(res.data["data"]);
     } catch (e) {
       print(e);
       throw e;

@@ -4,6 +4,8 @@
 
 
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
+import 'package:sendapp/utils/dbhelper.dart';
 
 class Product extends Equatable {
   final String categoryId;
@@ -20,10 +22,12 @@ class Product extends Equatable {
   final String image;
 
   get getCartQuantity=>this.cartQuantity;
-  set setCartQuantity(int i){
+set setCartQuantity(int i)  {
     if(cartQuantity>=1){
       cartQuantity = cartQuantity+i;
       price = unitPrice*cartQuantity;
+      DatabaseHelper db = DatabaseHelper() ;
+      db.updateQuantityAndPrice(quantity: cartQuantity.toString(),price: price.toString(),id: this.id);
     }
     print("$cartQuantity and $price");
     }
@@ -86,6 +90,20 @@ class Product extends Equatable {
     cartQuantity: 1,
     price: double.parse(json["unitPrice"]) ,
   );
+  factory Product.fromDB(Map<String, dynamic> json) => Product(
+    categoryId: json["categoryId"],
+    id: json["id"],
+    name: json["name"],
+    productId: json["productId"],
+    description: json["description"],
+    quantity: double.tryParse(json["quantity"]) ,
+    maxQuantity: double.tryParse(json["maxQuantity"]) ,
+    unitPrice: double.tryParse(json["unitPrice"]) ,
+    status: json["status"],
+    image: json["image"],
+    cartQuantity: int.tryParse(json["cartQuantity"]),
+    price: double.tryParse(json["price"]) ,
+  );
 
   Map<String, dynamic> toJson() => {
     "categoryId": categoryId,
@@ -98,6 +116,8 @@ class Product extends Equatable {
     "unitPrice": unitPrice,
     "status": status,
     "image": image,
+    "price":price,
+    "cartQuantity":cartQuantity
   };
 
   @override

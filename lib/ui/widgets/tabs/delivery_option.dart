@@ -1,4 +1,3 @@
-
 import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,13 +34,12 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
 //toggle dates
   List<bool> _dateSelections = [true, false, false, false, false];
 
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     RepositoryProvider.of<UserRepo>(context);
-    print(new DateFormat.yMMMd().format(new DateTime.now()));
+    print(new DateFormat.MMMd().format(new DateTime.now()));
   }
 
   @override
@@ -79,12 +77,14 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                       renderBorder: false,
                       children: [
                         Container(
-                            height: height * 0.25,
-                            width: width * 0.55,
+                            height: height * 0.19,
+                            width: width * 0.42,
                             padding: EdgeInsets.symmetric(horizontal: 15),
                             margin: EdgeInsets.symmetric(horizontal: 8),
                             decoration: BoxDecoration(
-                                color: lighterGreyColor,
+                                color: _deliverySelections[0]
+                                    ? lightGreyColor
+                                    : lighterGreyColor,
                                 borderRadius: BorderRadius.circular(12)),
                             alignment: Alignment.center,
                             child: Column(
@@ -92,13 +92,14 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                               children: <Widget>[
                                 Image.asset(
                                   'assets/icon-delivery.png',
-                                  scale: 4,
+                                  scale: 3,
+                                  color: mediumGreyColor2,
                                 ),
                                 SizedBox(
                                   height: 8,
                                 ),
                                 Text(
-                                  'Home Delivery',
+                                  'Standard',
                                   style: kTextHeading,
                                 ),
                                 SizedBox(
@@ -123,24 +124,27 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 8),
                           padding: EdgeInsets.symmetric(horizontal: 8),
-                          height: height * 0.25,
-                          width: width * 0.55,
+                          height: height * 0.19,
+                          width: width * 0.42,
                           decoration: BoxDecoration(
-                              color: lighterGreyColor,
+                              color: _deliverySelections[1]
+                                  ? lightGreyColor
+                                  : lighterGreyColor,
                               borderRadius: BorderRadius.circular(12)),
                           alignment: Alignment.center,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               Image.asset(
-                                'assets/icon-delivery.png',
-                                scale: 4,
+                                'assets/icon-fast-delivery.png',
+                                scale: 3,
+                                color: mediumGreyColor2,
                               ),
                               SizedBox(
                                 height: 8,
                               ),
                               Text(
-                                'Pickup',
+                                'Supersonic',
                                 style: kTextHeading,
                               ),
                               SizedBox(
@@ -180,57 +184,78 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                     ),
                   ),
 
-                  Padding(
-                      padding: const EdgeInsets.only(left: 16, top: 28),
-                      child: Text(
-                        'Select Date',
-                        style: kTextH2,
-                      )),
-                  SizedBox(
-                    height: 4,
-                  ),
+                  AnimatedOpacity(
+                      opacity: _deliverySelections[1] ? 0 : 1,
+                      duration: Duration(seconds: 1),
+                      child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 16, top: 28, bottom: 4),
+                          child: Text(
+                            'Select Date',
+                            style: kTextH2,
+                          ))),
+
                   //time selections
-                  SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: ToggleButtons(
-                        renderBorder: false,
-                        fillColor: whiteColor,
-                        splashColor: whiteColor,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 8),
-                            margin: EdgeInsets.symmetric(horizontal: 12),
-                            height: height * 0.12,
-//                        width: width*0.4,
-                            decoration: BoxDecoration(
+                  AnimatedOpacity(
+                    opacity: _deliverySelections[1] ? 0 : 1,
+                    duration: Duration(seconds: 1),
+                    child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: ToggleButtons(
+                          renderBorder: false,
+                          fillColor: whiteColor,
+                          splashColor: whiteColor,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              margin: EdgeInsets.symmetric(horizontal: 12),
+                              height: height * 0.09,
+                              width: width * 0.25,
+                              decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
-                                color: lighterGreyColor),
-                            child: Row(
+                                color: _dateSelections[0]
+                                    ? lightGreyColor
+                                    : lighterGreyColor,
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                '${DateFormat.MMMd().format(DateTime.now())}',
+                                overflow: TextOverflow.ellipsis,
+                                style: kTextBodyH1,
+                              ), /*Row(
                               children: <Widget>[
                                 CircularCheckBox(
-                                    activeColor: greenColor,
+                                    disabledColor: greenColor,
                                     //todo: Hardcoded Checkbox
                                     value: _dateSelections[0],
                                     materialTapTargetSize:
                                         MaterialTapTargetSize.padded,
-                                    onChanged: (_) {}),
+                                    onChanged: null),
                                 Text(
-                                  '${DateFormat.yMMMd().format(DateTime.now())}',
+                                  '${DateFormat.MMMd().format(DateTime.now())}',
                                   overflow: TextOverflow.ellipsis,
-                                  style: kTextHeading,
+                                  style: kTextBody,
                                 ),
                               ],
+                            )*/
                             ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 8),
-                            margin: EdgeInsets.symmetric(horizontal: 12),
-                            height: height * 0.12,
-//                        width: width*0.4,
-                            decoration: BoxDecoration(
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              margin: EdgeInsets.symmetric(horizontal: 12),
+                              height: height * 0.09,
+                              width: width * 0.25,
+                              decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
-                                color: lighterGreyColor),
-                            child: Row(
+                                color: _dateSelections[1]
+                                    ? lightGreyColor
+                                    : lighterGreyColor,
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                '${DateFormat.MMMd().format(dates[0])}',
+                                overflow: TextOverflow.ellipsis,
+                                style: kTextBodyH1,
+                              ), /*Row(
                               children: <Widget>[
                                 CircularCheckBox(
                                     activeColor: greenColor,
@@ -238,136 +263,172 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                                     value: _dateSelections[1],
                                     materialTapTargetSize:
                                         MaterialTapTargetSize.padded,
-                                    onChanged: (_) {}),
+                                    onChanged: null),
                                 Text(
-                                  '${DateFormat.yMMMd().format(dates[0])}',
+                                  '${DateFormat.MMMd().format(dates[0])}',
                                   overflow: TextOverflow.ellipsis,
                                   style: kTextHeading,
                                 ),
                               ],
+                            ),*/
                             ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 8),
-                            margin: EdgeInsets.symmetric(horizontal: 12),
-                            height: height * 0.12,
-//                        width: width*0.4,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: lighterGreyColor),
-                            child: Row(
+                            Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              margin: EdgeInsets.symmetric(horizontal: 12),
+                              height: height * 0.09,
+                              width: width * 0.25,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: _dateSelections[2]
+                                      ? lightGreyColor
+                                      : lighterGreyColor),
+                              child: Text(
+                                '${DateFormat.MMMd().format(dates[1])}',
+                                overflow: TextOverflow.ellipsis,
+                                style: kTextBodyH1,
+                              ), /*Row(
                               children: <Widget>[
                                 CircularCheckBox(
                                     activeColor: greenColor,
                                     //todo: Hardcoded Checkbox
                                     value: _dateSelections[2],
                                     materialTapTargetSize:
-                                        MaterialTapTargetSize.padded,
+                                    MaterialTapTargetSize.padded,
                                     onChanged: (_) {}),
                                 Text(
-                                  '${DateFormat.yMMMd().format(dates[1])}',
+                                  '${DateFormat.MMMd().format(dates[1])}',
                                   overflow: TextOverflow.ellipsis,
                                   style: kTextHeading,
                                 ),
                               ],
+                            ),*/
                             ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 8),
-                            margin: EdgeInsets.symmetric(horizontal: 12),
-                            height: height * 0.12,
-//                        width: width*0.4,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: lighterGreyColor),
-                            child: Row(
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              margin: EdgeInsets.symmetric(horizontal: 12),
+                              height: height * 0.09,
+                              width: width * 0.25,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: _dateSelections[3]
+                                      ? lightGreyColor
+                                      : lighterGreyColor),
+                              child: Text(
+                                '${DateFormat.MMMd().format(dates[2])}',
+                                overflow: TextOverflow.ellipsis,
+                                style: kTextBodyH1,
+                              ), /*Row(
                               children: <Widget>[
                                 CircularCheckBox(
                                     activeColor: greenColor,
                                     //todo: Hardcoded Checkbox
                                     value: _dateSelections[3],
                                     materialTapTargetSize:
-                                        MaterialTapTargetSize.padded,
+                                    MaterialTapTargetSize.padded,
                                     onChanged: (_) {}),
                                 Text(
-                                  '${DateFormat.yMMMd().format(dates[2])}',
+                                  '${DateFormat.MMMd().format(dates[2])}',
                                   overflow: TextOverflow.ellipsis,
                                   style: kTextHeading,
                                 ),
                               ],
+                            ),*/
                             ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 8),
-                            margin: EdgeInsets.symmetric(horizontal: 12),
-                            height: height * 0.12,
-//                        width: width*0.4,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: lighterGreyColor),
-                            child: Row(
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              margin: EdgeInsets.symmetric(horizontal: 12),
+                              height: height * 0.09,
+                              width: width * 0.25,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: _dateSelections[4]
+                                      ? lightGreyColor
+                                      : lighterGreyColor),
+                              child: Text(
+                                '${DateFormat.MMMd().format(dates[3])}',
+                                overflow: TextOverflow.ellipsis,
+                                style: kTextHeading,
+                              ), /*Row(
                               children: <Widget>[
                                 CircularCheckBox(
                                     activeColor: greenColor,
                                     //todo: Hardcoded Checkbox
                                     value: _dateSelections[4],
                                     materialTapTargetSize:
-                                        MaterialTapTargetSize.padded,
+                                    MaterialTapTargetSize.padded,
                                     onChanged: (_) {}),
                                 Text(
-                                  '${DateFormat.yMMMd().format(dates[3])}',
+                                  '${DateFormat.MMMd().format(dates[3])}',
                                   overflow: TextOverflow.ellipsis,
                                   style: kTextHeading,
                                 ),
                               ],
+                            ),*/
                             ),
-                          ),
-                        ],
-                        isSelected: _dateSelections,
-                        onPressed: (index) {
-                          setState(() {
-                            for (int val = 0;
-                                val < _dateSelections.length;
-                                val++) {
-                              if (val == index) {
-                                _dateSelections[val] = true;
-                              } else {
-                                _dateSelections[val] = false;
+                          ],
+                          isSelected: _dateSelections,
+                          onPressed: (index) {
+                            setState(() {
+                              for (int val = 0;
+                                  val < _dateSelections.length;
+                                  val++) {
+                                if (val == index) {
+                                  _dateSelections[val] = true;
+                                } else {
+                                  _dateSelections[val] = false;
+                                }
                               }
-                            }
-                          });
-                        },
-                      )),
+                            });
+                          },
+                        )),
+                  ),
 
-                  Padding(
-                      padding: const EdgeInsets.only(left: 16, top: 25),
-                      child: Text(
-                        'Select Time',
-                        style: kTextH2,
-                      )),
+                  AnimatedOpacity(
+                      duration: Duration(seconds: 1),
+                      opacity: _deliverySelections[1]||_dateSelections[0]?0:1,
+                    child: Padding(
+                        padding:
+                            const EdgeInsets.only(left: 16, top: 25, bottom: 4),
+                        child: Text(
+                          'Select Time',
+                          style: kTextH2,
+                        ),),
+                  ),
 
-                  SingleChildScrollView(
+            AnimatedOpacity(
+              duration: Duration(seconds: 1),
+              opacity: _deliverySelections[1]|| _dateSelections[0]?0:1,
+                child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: ToggleButtons(
                       renderBorder: false,
                       children: [
                         Container(
-                          height: height * 0.11,
-//                            width: width * 0.55,
+                          height: height * 0.08,
+                          width: width * 0.3,
                           padding: EdgeInsets.symmetric(horizontal: 15),
                           margin: EdgeInsets.symmetric(horizontal: 8),
                           decoration: BoxDecoration(
-                              color: lighterGreyColor,
+                              color: _timeSelection[0]
+                                  ? lightGreyColor
+                                  : lighterGreyColor,
                               borderRadius: BorderRadius.circular(12)),
                           alignment: Alignment.center,
-                          child: Row(
+                          child: Text(
+                            'Morning',
+                            overflow: TextOverflow.ellipsis,
+                            style: kTextBodyH1,
+                          ), /*Row(
                             children: <Widget>[
                               CircularCheckBox(
                                   activeColor: greenColor,
                                   //todo: Hardcoded Checkbox
                                   value: _timeSelection[0],
                                   materialTapTargetSize:
-                                      MaterialTapTargetSize.padded,
+                                  MaterialTapTargetSize.padded,
                                   onChanged: (_) {}),
                               Text(
                                 'Morning',
@@ -375,74 +436,96 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                                 style: kTextHeading,
                               ),
                             ],
-                          ),
+                          ),*/
                         ),
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 8),
                           padding: EdgeInsets.symmetric(horizontal: 8),
-                          height: height * 0.11,
+                          height: height * 0.08,
+                          width: width * 0.3,
                           decoration: BoxDecoration(
-                              color: lighterGreyColor,
+                              color: _timeSelection[1]
+                                  ? lightGreyColor
+                                  : lighterGreyColor,
                               borderRadius: BorderRadius.circular(12)),
                           alignment: Alignment.center,
-                          child: Row(
+                          child: Text(
+                            'Afternoon',
+                            overflow: TextOverflow.ellipsis,
+                            style: kTextBodyH1,
+                          ), /*Row(
                             children: <Widget>[
                               CircularCheckBox(
                                   activeColor: greenColor,
                                   //todo: Hardcoded Checkbox
                                   value: _timeSelection[1],
                                   materialTapTargetSize:
-                                      MaterialTapTargetSize.padded,
+                                  MaterialTapTargetSize.padded,
                                   onChanged: (_) {}),
                               Text(
                                 'Afternoon',
                                 overflow: TextOverflow.ellipsis,
-                                style: kTextHeading,
+                                style: kTextBodyH1,
                               ),
                             ],
-                          ),
+                          ),*/
                         ),
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 8),
                           padding: EdgeInsets.symmetric(horizontal: 8),
-                          height: height * 0.11,
+                          height: height * 0.08,
+                          width: width * 0.3,
                           decoration: BoxDecoration(
-                              color: lighterGreyColor,
+                              color: _timeSelection[2]
+                                  ? lightGreyColor
+                                  : lighterGreyColor,
                               borderRadius: BorderRadius.circular(12)),
                           alignment: Alignment.center,
-                          child: Row(
+                          child: Text(
+                            'Evening',
+                            overflow: TextOverflow.ellipsis,
+                            style: kTextHeading,
+                          ), /*Row(
                             children: <Widget>[
                               CircularCheckBox(
-                                  activeColor: greenColor,
-                                  //todo: Hardcoded Checkbox
+                                //todo: Hardcoded Checkbox
                                   value: _timeSelection[2],
+
+                                  disabledColor: greenColor,
                                   materialTapTargetSize:
-                                      MaterialTapTargetSize.padded,
-                                  onChanged: (_) {}),
+                                  MaterialTapTargetSize.padded,
+                                  onChanged: null),
                               Text(
                                 'Evening',
                                 overflow: TextOverflow.ellipsis,
                                 style: kTextHeading,
                               ),
                             ],
-                          ),
+                          ),*/
                         ),
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 8),
                           padding: EdgeInsets.symmetric(horizontal: 8),
-                          height: height * 0.11,
+                          height: height * 0.08,
+                          width: width * 0.3,
                           decoration: BoxDecoration(
-                              color: lighterGreyColor,
+                              color: _timeSelection[3]
+                                  ? lightGreyColor
+                                  : lighterGreyColor,
                               borderRadius: BorderRadius.circular(12)),
                           alignment: Alignment.center,
-                          child: Row(
+                          child: Text(
+                            'Night',
+                            overflow: TextOverflow.ellipsis,
+                            style: kTextBodyH1,
+                          ), /*Row(
                             children: <Widget>[
                               CircularCheckBox(
                                   activeColor: greenColor,
                                   //todo: Hardcoded Checkbox
                                   value: _timeSelection[3],
                                   materialTapTargetSize:
-                                      MaterialTapTargetSize.padded,
+                                  MaterialTapTargetSize.padded,
                                   onChanged: (_) {}),
                               Text(
                                 'Night',
@@ -450,7 +533,7 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                                 style: kTextHeading,
                               ),
                             ],
-                          ),
+                          ),*/
                         ),
                       ],
                       isSelected: _timeSelection,
@@ -471,9 +554,9 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                         });
                       },
                     ),
-                  ),
+                  ),),
                   SizedBox(
-                    height: 15,
+                    height: 20,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12),
@@ -481,15 +564,16 @@ class _DeliveryOptionsState extends State<DeliveryOptions> {
                       text: "Continue",
                       ico: Icons.arrow_forward,
                       onPress: () {
-                        //add delivery date and delivery time to the order Model
-                        var orderModel =
+                        //fixme:add delivery date and delivery time to the order Model
+                       /* var orderModel =
                             RepositoryProvider.of<UserRepo>(context).orderModel;
                         RepositoryProvider.of<UserRepo>(context).orderModel =
                             orderModel.copyWith(
                                 deliveryDate:
-                                    dates[_dateSelections.indexOf(true)].toString(),
+                                    dates[_dateSelections.indexOf(true)]
+                                        .toString(),
                                 deliveryTime:
-                                    time[_timeSelection.indexOf(true)]);
+                                    time[_timeSelection.indexOf(true)]);*/
                         widget.tabController.animateTo(2);
                       },
                     ),

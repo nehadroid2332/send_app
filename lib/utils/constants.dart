@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Constants {
-// static const URL = "https://dev.sendapp.com.au/";
-   static const URL = "http://92527c42.ngrok.io/";
+ static const URL = "https://dev.sendapp.com.au/";
+//   static const URL = "http://33f69193.ngrok.io/";
   static const APP_NAME1 = "Send";
   static const APP_COUNTRY_CODE = "+91";
   static const APP_NAME2 = "Groceries and other \ndaily essentials delivered";
@@ -18,6 +18,7 @@ class Constants {
 
 //green #7BED8D
 const  Color greenColor = Color(0xFF7BED8D);
+//const  Color lightGreenColor = Color(0xFFD7F9DC);
 
 //white #FFFFFF
 const  Color whiteColor = Color(0xFFFFFFFF);

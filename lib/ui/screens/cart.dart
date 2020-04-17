@@ -26,13 +26,16 @@ class _CartScreenState extends State<CartScreen> {
   CartRepo cartRepo;
   UserRepo userRepo;
   List<Product> product = [];
+  double total = 0.0;
   final _key = GlobalKey<ScaffoldState>();
 
+Future<List<Product>> getProcuct()async{
+  return cartRepo.getProducts;
+}
   @override
   void initState() {
     cartRepo = RepositoryProvider.of<CartRepo>(context);
     userRepo = RepositoryProvider.of<UserRepo>(context);
-    product = cartRepo.getProducts;
     // TODO: implement initState
     super.initState();
   }
@@ -53,181 +56,237 @@ class _CartScreenState extends State<CartScreen> {
             style: kTextHeading,
           ),
         ),
-        body: cartRepo.getProducts.isNotEmpty
-            ? Container(
-                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) {
-                          return itemCard(
-                            context: context,
-                            index: index,
-                            title: product[index].name,
-                            quantity: product[index].quantity,
-                            price: product[index].price,
-                            imageUrl: product[index].image,
-                            onEdit: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ProductDetail(
-                                    product: product[index],
-                                    notFromCart: false,
-                                  ),
-                                ),
+        body:
+        FutureBuilder<List<Product>>(
+            future: getProcuct(),
+            builder: (context,snapshot){
+              if(snapshot.hasError){
+                return Text(snapshot.error);
+              }
+             if(snapshot.connectionState == ConnectionState.waiting){
+                  return Center(child: CircularProgressIndicator(),);
+                }if(snapshot.connectionState == ConnectionState.done){
+
+                  product = snapshot.data;
+                  return  product.isNotEmpty
+                      ? Container(
+                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    child: Column(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+
+
+                                  total = total + product[index].price;
+
+
+
+                              return itemCard(
+                                context: context,
+                                index: index,
+                                title: product[index].name,
+                                quantity: product[index].quantity,
+                                price: product[index].price,
+                                imageUrl: product[index].image,
+                                onEdit: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProductDetail(
+                                        product: product[index],
+                                        notFromCart: false,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                onDelete: () {
+                                  setState(() {
+                                    cartRepo.deleteProduct(product[index]);
+                                     getProcuct();
+                                  });
+                                },
                               );
                             },
-                            onDelete: () {
-                              setState(() {
-                                cartRepo.deleteProduct(product[index]);
-                                product = cartRepo.getProducts;
-                              });
-                            },
-                          );
-                        },
-                        itemCount: cartRepo.getProducts.length,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          'Sub-total',
-                          style: kTextHeading2,
+                            itemCount: product.length,
+                          ),
                         ),
-                        Text(
-                          '\$${cartRepo.getTotal()}',
-                          style: kTextHeading2,
+                        SizedBox(
+                          height: 16,
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          'Delivery',
-                          style: kTextHeading2,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'Sub-total',
+                              style: kTextHeading2,
+                            ),
+                            FutureBuilder(
+                              future: cartRepo.getTotal(),
+                              builder: (context,AsyncSnapshot<double> snapshot){
+                               if(snapshot.connectionState == ConnectionState.waiting){
+                                return Text("");
+                               }
+                                if(snapshot.connectionState == ConnectionState.done){
+                                  if(snapshot.hasError){
+                                  return Text("");
+                                  }
+                                  return Text(
+                                    //fixme shoe total from repo
+                                    '\$${snapshot.data}',
+//                              '\$$total',
+                                    style: kTextHeading2,
+                                  );
+                               }
+                                return null;
+                              },
+                            ),
+                          ],
                         ),
-                        Text(
-                          'Standard (free)',
-                          style: kTextHeading2,
+                        SizedBox(
+                          height: 8,
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          'Total',
-                          style: TextStyle(
-                              color: mediumGreyColor2,
-                              fontSize: 24,
-                              fontFamily: 'Acumin'),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'Delivery',
+                              style: kTextHeading2,
+                            ),
+                            Text(
+                              'Standard (free)',
+                              style: kTextHeading2,
+                            ),
+                          ],
                         ),
-                        Text(
-                          '\$${cartRepo.getTotal()}',
-                          style: TextStyle(
-                              color: mediumGreyColor2,
-                              fontSize: 24,
-                              fontFamily: 'Acumin'),
+                        SizedBox(
+                          height: 8,
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 32,
-                    ),
-                    ButtonTheme(
-                      minWidth: MediaQuery.of(context).size.width,
-                      height: 20,
-                      child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(36.0),
-                            side: BorderSide(color: greenColor, width: 2)),
-                        onPressed: () async {
-                          //todo: move to Delivery Options
-                          //check user is authenticated
-                          bool islogin = await userRepo.isSignedIn();
-                          if (islogin) {
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'Total',
+                              style: TextStyle(
+                                  color: mediumGreyColor2,
+                                  fontSize: 24,
+                                  fontFamily: 'Acumin'),
+                            ),
+                            FutureBuilder(
+                              future: cartRepo.getTotal(),
+                              builder: (context,AsyncSnapshot<double> snapshot){
+                                if(snapshot.connectionState == ConnectionState.waiting){
+                                  return Text("");
+                                }
+                                if(snapshot.connectionState == ConnectionState.done){
+                                  if(snapshot.hasError){
+                                    return Text("");
+                                  }
+                                  return Text(
+                                    //fixme: show total
+                                    '\$${snapshot.data}',
+//                              '\$$total',
+                                    style: TextStyle(
+                                        color: mediumGreyColor2,
+                                        fontSize: 24,
+                                        fontFamily: 'Acumin'),
+                                  );
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 32,
+                        ),
+                        ButtonTheme(
+                          minWidth: MediaQuery.of(context).size.width,
+                          height: 20,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(36.0),
+                                side: BorderSide(color: greenColor, width: 2)),
+                            onPressed: () async {
+                              //todo: move to Delivery Options
+                              //check user is authenticated
+                              bool islogin = await userRepo.isSignedIn();
+                              if (islogin) {
 
-                         userRepo.orderModel=   OrderModel(
-                                itemList: cartRepo.getProducts
-                                    .map((e) => ItemList(
+                               /* userRepo.orderModel=   OrderModel(
+                                    itemList: cartRepo.getProducts
+                                        .map((e) => ItemList(
                                         itemId: e.id,
                                         quantity: e.quantity.toString(),
                                         total: e.price.toString()))
-                                    .toList());
-                            Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  builder: (context) => BlocProvider(
-                                    create: (context) => OrderBloc(),
-                                    child: CheckoutScreen(),
+                                        .toList());*/
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                      builder: (context) => BlocProvider(
+                                        create: (context) => OrderBloc(),
+                                        child: CheckoutScreen(),
+                                      ),
+                                    ));
+                              } else {
+                                _key.currentState
+                                  ..hideCurrentSnackBar()
+                                  ..showSnackBar(SnackBar(
+                                    backgroundColor: greenColor,
+                                    content: Text("please Login first"),
+                                    action: SnackBarAction(
+                                      label: "Ok",
+                                      onPressed: () {
+                                        print("pressed");
+                                        widget.tabController.index = 2;
+                                      },
+                                      textColor: whiteColor,
+                                    ),
+                                  ));
+                              }
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 32, vertical: 16),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.arrow_forward,
+                                    size: 16,
                                   ),
-                                ));
-                          } else {
-                            _key.currentState
-                              ..hideCurrentSnackBar()
-                              ..showSnackBar(SnackBar(
-                                backgroundColor: greenColor,
-                                content: Text("please Login first"),
-                                action: SnackBarAction(
-                                  label: "Ok",
-                                  onPressed: () {
-                                    print("pressed");
-                                    widget.tabController.index = 2;
-                                  },
-                                  textColor: whiteColor,
-                                ),
-                              ));
-                          }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 32, vertical: 16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(
-                                Icons.arrow_forward,
-                                size: 16,
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text('CHECKOUT',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700)),
+                                ],
                               ),
-                              SizedBox(
-                                width: 4,
-                              ),
-                              Text('CHECKOUT',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700)),
-                            ],
+                            ),
+                            color: greenColor,
+                            textColor: Colors.white,
+                            elevation: 1,
                           ),
                         ),
-                        color: greenColor,
-                        textColor: Colors.white,
-                        elevation: 1,
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-              )
-            : Center(
-                child: Text(
-                  "No Item in Cart",
-                  style: kTextHeading,
-                ),
-              ),
+                  )
+                      : Center(
+                    child: Text(
+                      "No Item in Cart",
+                      style: kTextHeading,
+                    ),
+                  );
+                }
+                return null;
+
+            })
+
+
       ),
     );
   }

@@ -39,6 +39,7 @@ class CategoriesRepository {
 
   Future<List<Product>> getProductById({String productId}) async {
     try {
+//      fixme: uncomment this location code
       final response = await _networkRepository.getProducts(
           id: productId, position: await location.getLocation());
       var list = response.data["data"] as List;
