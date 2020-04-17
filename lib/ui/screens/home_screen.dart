@@ -27,33 +27,27 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-
   int currentTabIndex = 0;
   CupertinoTabController _tabController =
       CupertinoTabController(initialIndex: 0);
 
-FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   @override
   void initState() {
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
-
       },
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");
-
       },
       onResume: (Map<String, dynamic> message) async {
         print("onResume: $message");
-
       },
     );
     _tabController.addListener(() {
-      setState(() {
-
-      });
+      setState(() {});
       print(_tabController.index);
     });
     // TODO: implement initState
@@ -105,7 +99,6 @@ FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
                 ),
                 title: Text("")),
           ]),
-
       tabBuilder: (context, index) {
         switch (index) {
           case 0:
@@ -117,7 +110,10 @@ FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
                 child: StorePage());
             break;
           case 1:
-            return PaymentMethod();
+            return CartScreen(
+              tabController: _tabController,
+            );
+
             break;
           case 2:
             return BlocProvider(

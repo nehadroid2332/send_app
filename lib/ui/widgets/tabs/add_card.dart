@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sendapp/model/card.dart';
 import 'package:sendapp/utils/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stripe_sdk/stripe_sdk.dart';
 import 'package:stripe_sdk/stripe_sdk_ui.dart';
 import '../button.dart';
@@ -244,6 +245,9 @@ class _AddCardState extends State<AddCard> {
       );
       final token = await StripeApi.instance.createPaymentMethodFromCard(card);
       print("Token: $token");
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      await sharedPreferences.setString("token", token.toString());
     } catch (e) {
       print("Error: $e");
     }

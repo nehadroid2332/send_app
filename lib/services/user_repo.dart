@@ -14,7 +14,6 @@ import 'package:meta/meta.dart';
 class UserRepo {
   final FirebaseAuth _firebaseAuth;
 
-
   UserRepo({
     FirebaseAuth firebaseAuth,
   }) : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
@@ -25,10 +24,9 @@ class UserRepo {
     return _sharedPreferences.getBool(Constants.SIGNIN) ?? false;
   }
 
+  List<Map<String, dynamic>> _savedCard = [];
 
-// List<Token> _savedCard = [];
-
-  // List<Token> get savedCard => _savedCard;
+  List<Map<String, dynamic>> get savedCard => _savedCard;
 
   List<Address> _addresses = [];
   Address _address;
@@ -43,7 +41,7 @@ class UserRepo {
 
   OrderModel get orderModel => _orderModel;
 
- set orderModel(OrderModel value) {
+  set orderModel(OrderModel value) {
     _orderModel = value;
   }
 
@@ -51,21 +49,30 @@ class UserRepo {
   NetworkRepository _networkRepository = NetworkRepository();
   final String userId = "5d67f7ae-65d6-4653-b311-7249f33bb0aa";
 
-  Future<String> getUserId()async{
+  Future<String> getUserId() async {
     _sharedPreferences = await SharedPreferences.getInstance();
-  final user = UserModel.fromJson(
+    final user = UserModel.fromJson(
         jsonDecode(_sharedPreferences.getString(Constants.USER)));
-  return user.id;
+    return user.id;
   }
 
 //add address
-  Future<Address> addUserAddress({String name, String address, String pinCode}) async {
+  Future<Address> addUserAddress(
+      {String name, String address, String pinCode}) async {
     print("inside Function");
     try {
       var location = await Location.instance.getLocation();
-      Map body = {"userId":await getUserId(),"type":"Home","address":address,"postalCode":pinCode,"isDefault":"1","lat":location.latitude,"long":location.longitude};
+      Map body = {
+        "userId": await getUserId(),
+        "type": "Home",
+        "address": address,
+        "postalCode": pinCode,
+        "isDefault": "1",
+        "lat": location.latitude,
+        "long": location.longitude
+      };
       final res = await _networkRepository.addAddress(address: body);
-     _address= Address.fromJson(res.data["data"]);
+      _address = Address.fromJson(res.data["data"]);
       _addresses.add(Address.fromJson(res.data["data"]));
       return Address.fromJson(res.data["data"]);
     } catch (e) {
@@ -80,16 +87,15 @@ class UserRepo {
     return address.map((e) => Address.fromJson(e)).toList();
   }
 
-
 //to sign out
-  Future <void> signOut() async {
+  Future<void> signOut() async {
     _sharedPreferences = await SharedPreferences.getInstance();
     _sharedPreferences.clear();
   }
 
 //login with Phone
-  Future<FirebaseUser> signInWithPhone(String smsCode,
-      String verificationCode) async {
+  Future<FirebaseUser> signInWithPhone(
+      String smsCode, String verificationCode) async {
     await _firebaseAuth.signOut();
     final AuthCredential credential = PhoneAuthProvider.getCredential(
       verificationId: verificationCode,
@@ -101,12 +107,11 @@ class UserRepo {
     return _firebaseAuth.currentUser();
   }
 
-
-
-  Future verifyCurrentUser({ String phoneNumber}) async {
+  Future verifyCurrentUser({String phoneNumber}) async {
     try {
-      var res =
-      await _networkRepository.verifyUser(phone: phoneNumber,);
+      var res = await _networkRepository.verifyUser(
+        phone: phoneNumber,
+      );
       _sharedPreferences = await SharedPreferences.getInstance();
       _sharedPreferences.setBool(Constants.SIGNIN, true);
       saveUser(UserModel.fromJson(res.data["data"]));
@@ -131,7 +136,6 @@ class UserRepo {
         jsonDecode(_sharedPreferences.getString(Constants.USER)));
   }
 
-
   Future<UserModel> registerUser(
       {String name, String lname, String email}) async {
     try {
@@ -147,5 +151,4 @@ class UserRepo {
       throw e;
     }
   }
-
 }
