@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:sendapp/model/card.dart';
 import 'package:sendapp/utils/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'add_card.dart';
+
 class PaymentMethod extends StatefulWidget {
   @override
   _PaymentMethodState createState() => _PaymentMethodState();
@@ -10,7 +14,13 @@ class PaymentMethod extends StatefulWidget {
 
 class _PaymentMethodState extends State<PaymentMethod> {
   static const kLightGray = Color(0xFFF0F3F8);
-  List<CardDetails> cards = new List<CardDetails>();
+  List<Token> cards = new List<Token>();
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -164,9 +174,9 @@ class _PaymentMethodState extends State<PaymentMethod> {
               alignment: Alignment.topLeft,
               child: Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 child: Text(
-                  card.number,
+                  card.card.last4,
                   style: kTextBoldMedWhite,
                 ),
               ),
@@ -175,9 +185,9 @@ class _PaymentMethodState extends State<PaymentMethod> {
               alignment: Alignment.topLeft,
               child: Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 child: Text(
-                  card.expiry,
+                  "${card.card.expMonth}/${card.card.expYear}",
                   style: kTextBoldMedWhite,
                 ),
               ),
@@ -186,9 +196,9 @@ class _PaymentMethodState extends State<PaymentMethod> {
               alignment: Alignment.topLeft,
               child: Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 child: Text(
-                  card.name,
+                  card.billingDetails.name,
                   style: kTextBoldMedWhite,
                 ),
               ),
@@ -212,5 +222,18 @@ class _PaymentMethodState extends State<PaymentMethod> {
         ),
       ),
     );
+  }
+
+  void init() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final list = sharedPreferences.getStringList("tokens");
+    if (list != null) {
+      setState(() {
+        cards.addAll(list
+            .map((s) => json.decode(s))
+            .map((s) => Token.fromJson(s))
+            .toList());
+      });
+    }
   }
 }

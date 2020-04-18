@@ -110,10 +110,7 @@ class _HomeScreenState extends State<HomeScreen>
                 child: StorePage());
             break;
           case 1:
-            return CartScreen(
-              tabController: _tabController,
-            );
-
+            return PaymentMethod();
             break;
           case 2:
             return BlocProvider(

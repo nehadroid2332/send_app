@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -242,12 +243,20 @@ class _AddCardState extends State<AddCard> {
         number: cardNum,
         expMonth: month,
         expYear: year,
+        cvc: code.toString(),
+        name: name,
       );
       final token = await StripeApi.instance.createPaymentMethodFromCard(card);
-      print("Token: $token");
+      final data = json.encode(token);
+      print("Token: $data");
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
-      await sharedPreferences.setString("token", token.toString());
+      List<String> list = sharedPreferences.getStringList("tokens");
+      if (list == null) {
+        list = [];
+      }
+      list.add(data);
+      await sharedPreferences.setStringList("tokens", list);
     } catch (e) {
       print("Error: $e");
     }
