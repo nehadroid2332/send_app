@@ -157,16 +157,27 @@ class _PaymentMethodState extends State<PaymentMethod> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            SizedBox(
-              height: 32,
-            ),
             Align(
               alignment: Alignment.topLeft,
               child: Padding(
                 padding: EdgeInsets.only(left: 16),
-                child: Image.asset(
-                  'assets/$image.png',
-                  scale: 10,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      Icons.credit_card,
+                      color: Colors.white,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 5),
+                      child: Text(
+                        "${card.card.brand}",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
