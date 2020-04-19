@@ -66,8 +66,9 @@ class _PaymentMethodState extends State<PaymentMethod> {
                     if (result != null) {
                       //add to list
                       setState(() {
-                        cards.add(result);
-                        cardVisible = true;
+                        // cards.add(result);
+                        // cardVisible = true;
+                        init();
                       });
                     }
                   },
@@ -240,6 +241,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
     final list = sharedPreferences.getStringList("tokens");
     if (list != null) {
       setState(() {
+        cards.clear();
         cards.addAll(list
             .map((s) => json.decode(s))
             .map((s) => Token.fromJson(s))

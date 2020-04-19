@@ -257,6 +257,7 @@ class _AddCardState extends State<AddCard> {
       }
       list.add(data);
       await sharedPreferences.setStringList("tokens", list);
+      Navigator.pop(context);
     } catch (e) {
       print("Error: $e");
     }
