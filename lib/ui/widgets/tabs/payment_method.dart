@@ -59,18 +59,14 @@ class _PaymentMethodState extends State<PaymentMethod> {
                 child: GestureDetector(
                   onTap: () async {
                     //launch different screen
-                    var result = await Navigator.push(
+                    await Navigator.push(
                         context,
                         new MaterialPageRoute(
                             builder: (BuildContext context) => AddCard()));
-                    if (result != null) {
-                      //add to list
-                      setState(() {
-                        // cards.add(result);
-                        // cardVisible = true;
-                        init();
-                      });
-                    }
+                    //add to list
+                    setState(() {
+                      init();
+                    });
                   },
                   child: Container(
                     width: mediaQuery.size.width * 0.90,
@@ -78,9 +74,9 @@ class _PaymentMethodState extends State<PaymentMethod> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Image.asset(
-                          'assets/icon-add-circle.png',
-                          scale: 3,
+                        Icon(
+                          Icons.add_circle_outline,
+                          size: 40,
                         ),
                         SizedBox(
                           height: 8,

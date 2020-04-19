@@ -100,7 +100,7 @@ class _AddCardState extends State<AddCard> {
                 },
                 inputFormatters: [
                   WhitelistingTextInputFormatter.digitsOnly,
-                  new LengthLimitingTextInputFormatter(19),
+                  new LengthLimitingTextInputFormatter(16),
                   new CardNumberInputFormatter()
                 ],
                 keyboardType: TextInputType.number,
