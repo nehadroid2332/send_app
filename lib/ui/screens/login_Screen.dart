@@ -12,7 +12,9 @@ class LoginScreen extends StatefulWidget {
   final UserRepo userRepo;
   final AuthenticationBloc authenticationBloc;
 
-  const LoginScreen({Key key,@required this.userRepo,@required this.authenticationBloc}) : super(key: key);
+  const LoginScreen(
+      {Key key, @required this.userRepo, @required this.authenticationBloc})
+      : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -22,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _phoneController = TextEditingController();
   final _key = GlobalKey<ScaffoldState>();
   LoginBloc loginBloc;
-
+  String _code = "+61";
   @override
   void initState() {
     // TODO: implement initState
@@ -40,6 +42,36 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SizedBox(
+              height: 65,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                      child: RadioListTile(
+                    value: "+91",
+                    groupValue: _code,
+                    onChanged: (s) {
+                      setState(() {
+                        _code = s;
+                      });
+                    },
+                    title: Text("+91"),
+                  )),
+                  Expanded(
+                    child: RadioListTile(
+                      value: "+61",
+                      groupValue: _code,
+                      onChanged: (s) {
+                        setState(() {
+                          _code = s;
+                        });
+                      },
+                      title: Text("+61"),
+                    ),
+                  )
+                ],
+              ),
+            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12),
               child: TextFormField(
@@ -77,11 +109,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => OtpScreen(
-                          mobileNumber: "+91" + _phoneController.text,
-                          userRepo: widget.userRepo,
-                          bloc: loginBloc,
-                          authBloc:widget.authenticationBloc
-                        ),
+                            mobileNumber: _code + _phoneController.text,
+                            userRepo: widget.userRepo,
+                            bloc: loginBloc,
+                            authBloc: widget.authenticationBloc),
                       ),
                     );
                   } else {
